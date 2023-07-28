@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import {
   Routes, Route, Navigate,
 } from 'react-router-dom';
+import CriarAvaliacaoPage from '../pages/CriarAvaliacaoPage';
 
 /**
  * Arquivos importadas utilizando a técnica de lazy/Suspense do React.
@@ -13,41 +14,76 @@ import {
 const PrivateRoute = lazy(() => import('../components/PrivateRoute'));
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const SubscriptionPage = lazy(() => import('../pages/SubscriptionPage'));
-const TaskCreatePage = lazy(() => import('../pages/TaskCreatePage'));
-const TaskListPage = lazy(() => import('../pages/TaskListPage'));
+const CriarAlunoPage = lazy(() => import('../pages/CriarAlunoPage'));
+const ListaAlunosPage = lazy(() => import('../pages/ListaAlunosPage'));
+const ListaAvaliacoesPage = lazy(() => import('../pages/ListaAvaliacoesPage'));
+
 const AppLayout = lazy(() => import('./AppLayout'));
+
+//Para importar usando o lazy, é brigatório que as rotas estejem dentro de um suspense<Suspense>
 
 function MainLayout() {
   return (
     <Suspense>
       <Routes>
-        <Route path="/" element={<Navigate to="/tasks" />} />
+        <Route path="/" element={<Navigate to="/alunos" />} />
+        <Route path="/" element={<Navigate to="/avaliacoes" />} />
         <Route
-          path="/tasks"
+          path="/alunos"
           element={(
             <PrivateRoute>
               <AppLayout>
-                <TaskListPage />
+                <ListaAlunosPage />
               </AppLayout>
             </PrivateRoute>
           )}
         />
         <Route
-          path="/tasks/new"
+          path="/alunos/new"
           element={(
             <PrivateRoute>
               <AppLayout>
-                <TaskCreatePage />
+                <CriarAlunoPage />
               </AppLayout>
             </PrivateRoute>
           )}
         />
         <Route
-          path="/tasks/:taskId"
+          path="/alunos/:alunoId"
           element={(
             <PrivateRoute>
               <AppLayout>
-                <TaskCreatePage />
+                <CriarAlunoPage />
+              </AppLayout>
+            </PrivateRoute>
+          )}
+        />
+         <Route
+          path="/avaliacoes/new/:alunoId"
+          element={(
+            <PrivateRoute>
+              <AppLayout>
+                <CriarAvaliacaoPage />
+              </AppLayout>
+            </PrivateRoute>
+          )} 
+        />        
+        <Route
+          path="/avaliacoes/:avaliacaoId/:alunoId"
+          element={(
+            <PrivateRoute>
+              <AppLayout>
+                <CriarAvaliacaoPage />
+              </AppLayout>
+            </PrivateRoute>
+          )}
+        />
+        <Route
+          path="/avaliacoes/alunos/:alunoId"
+          element={(
+            <PrivateRoute>
+              <AppLayout>
+                <ListaAvaliacoesPage />
               </AppLayout>
             </PrivateRoute>
           )}

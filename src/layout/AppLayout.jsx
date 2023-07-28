@@ -4,7 +4,8 @@ import {
 import { useCallback, useMemo } from 'react';
 import { useNavigate, matchPath, useLocation } from 'react-router-dom';
 
-import Logo from '../assets/logo-db1-group.png';
+import Logo from '../assets/logo-perde-peso-fundo2.png'; 
+
 import LocalStorageHelper from '../helpers/localstorage-helper';
 
 import './AppLayout.css';
@@ -13,12 +14,12 @@ const { Header, Footer } = Layout;
 
 const MENU_ITEMS = [
   {
-    path: '/tasks',
-    label: 'Minhas tarefas',
+    path: '/alunos',
+    label: 'Lista Alunos',
   },
   {
-    path: '/tasks/new',
-    label: 'Nova tarefa',
+    path: '/alunos/new',
+    label: 'Novo aluno',
   },
 ];
 
@@ -52,8 +53,9 @@ function AppLayout({ children }) {
 
   return (
     <Layout className="AppLayout_layout">
-      <Header
+      <Header        
         style={{
+          height: 80,          
           display: 'flex',
           alignItems: 'center',
           flexWrap: 'nowrap',
@@ -62,7 +64,7 @@ function AppLayout({ children }) {
         <img
           src={Logo}
           style={{
-            height: 40,
+            height: 80,
             marginLeft: 16,
             marginRight: 16,
           }}
@@ -102,7 +104,7 @@ function AppLayout({ children }) {
       <Footer>
         <Row justify="center">
           <Col>
-            Bootcamp DB1 © 2023
+            Bootcamp DB1 © 2023 - Projeto Final - José Mauricio Barbisan Zottis
           </Col>
         </Row>
       </Footer>

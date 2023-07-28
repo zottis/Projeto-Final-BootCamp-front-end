@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
-import Logo from '../assets/logo-db1-group.png';
+import Logo from '../assets/logo-perde-peso.png';
 import InputText from '../components/InputText';
 import LocalStorageHelper from '../helpers/localstorage-helper';
 import { validateEmail, validatePassword } from '../validatiors/usuarios';
@@ -28,7 +28,18 @@ function LoginPage() {
 
       if (!email?.valid || !senha?.valid) return;
 
-      // TODO: implementar
+      const body = {
+        email: email.value,
+        senha: senha.value,
+      };
+
+      const response = await axios.post('usuarios/login', body);
+
+      const { token } = response.data;
+
+      LocalStorageHelper.setToken(token);
+
+      navigate('/alunos');
     } catch (error) {
       console.warn(error);
       const { response } = error;

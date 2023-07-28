@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCallback, useState } from 'react';
 import axios from 'axios';
 
-import Logo from '../assets/logo-db1-group.png';
+import Logo from '../assets/logo-perde-peso.png';
 import InputText from '../components/InputText';
 import { validateEmail, validateName, validatePassword } from '../validatiors/usuarios';
 
@@ -27,11 +27,32 @@ function SubscriptionPage() {
 
       if (!nome?.valid || !email?.valid || !senha?.valid) return;
 
-      // TODO: implementar
+      const body = {
+        nome: nome.value,
+        email: email.value,
+        senha: senha.value,
+      };
+
+      await axios.post('/usuarios', body);
+
+      Modal.success({
+        title: 'Cadastro realizado com sucesso!',
+      });
+
+      navigate('/login');
     } catch (error) {
       console.warn(error);
       const { response } = error;
-      // TODO: implementar tratamento de erro
+      if (response && response.status === 422) {
+        Modal.error({
+          title: 'Email já cadastrado!',
+        });
+      } else {
+        Modal.error({
+          title: 'Ooopps, Não foi possível cadastrar o usuário no momento',
+        });
+      }
+
     } finally {
       setLoading(false);
     }
@@ -51,7 +72,7 @@ function SubscriptionPage() {
       <Row
         justify="center"
       >
-        <Col xs={24} sl={14} md={12} lg={10} xl={8}>
+        <Col xs={24} sm={14} md={12} lg={10} xl={8}>
           <Card style={{ margin: 24 }}>
             <div style={{ textAlign: 'center' }}>
               <img

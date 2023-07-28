@@ -9,6 +9,10 @@ html, body, #root {
   box-sizing: border-box;
 }
 
+h2 { 
+  text-align: center;
+}
+
 #root {
   overflow-y: auto;
 }
